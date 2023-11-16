@@ -40,7 +40,7 @@ variables:
 mode: parallel
 max: 10
 trace:
-  stored_traces: 0
+  stored_traces: 10
 trigger:
   - platform: event
     event_type: "zwave_js_notification"
