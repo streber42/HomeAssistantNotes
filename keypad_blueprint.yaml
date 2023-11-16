@@ -16,7 +16,7 @@ blueprint:
       selector:
         entity:
           domain: alarm_control_panel
-          integration: alarmo
+          integration: Envisalink_new
     selected_action_police:
       name: Selected Action Police
       description: Select the action for Police Button
@@ -92,12 +92,12 @@ trigger:
       event_type: 19
     id: keypad_medical
   - platform: event
-    event_type: "alarmo_failed_to_arm"
+    event_type: "alarm_failed_to_arm"
     event_data:
       reason: "invalid_code"
     id: invalid_code
   - platform: event
-    event_type: "alarmo_failed_to_arm"
+    event_type: "alarm_failed_to_arm"
     event_data:
       reason: "open_sensors"
     id: need_bypass
@@ -138,7 +138,7 @@ action:
             - code_entered
             - keypad_disarm
       sequence:
-        - service: alarmo.disarm
+        - service: alarm_control_panel.alarm_disarm
           data:
             entity_id: !input alarm
             code: >
@@ -158,7 +158,7 @@ action:
               entity_id: !input alarm
               state: disarmed
       sequence:
-        - service: alarmo.arm
+        - service: alarm_control_panel.alarm_arm_home
           data:
             entity_id: !input alarm
             mode: '{{ trigger.id.split("_")[2] }}'
@@ -177,7 +177,7 @@ action:
                 event_data: null
           timeout: '5'
           continue_on_timeout: false
-        - service: alarmo.arm
+        - service: alarm_control_panel.alarm_arm_home
           data:
             entity_id: !input alarm
             mode: '{{ trigger.id.split("_")[2] }}'
